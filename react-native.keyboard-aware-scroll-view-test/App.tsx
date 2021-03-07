@@ -2,20 +2,20 @@ import React from "react";
 import {
   Button,
   KeyboardAvoidingView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
 } from "react-native";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function App() {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={StyleSheet.absoluteFill}>
         <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
-          <KeyboardAwareScrollView>
+          <ScrollView>
             <View style={styles.container}>
               <View style={styles.formControl}>
                 <Text style={styles.inputLabel}>Username</Text>
@@ -42,7 +42,7 @@ export default function App() {
                 <TextInput style={styles.textInput}></TextInput>
               </View>
             </View>
-          </KeyboardAwareScrollView>
+          </ScrollView>
           <View style={styles.buttonContainer}>
             <Button onPress={() => {}} title="Submit" color="#841584" />
           </View>
