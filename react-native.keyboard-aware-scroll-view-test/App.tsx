@@ -35,7 +35,7 @@ export default function App() {
               </View>
               <View style={styles.formControl}>
                 <Text style={styles.inputLabel}>City</Text>
-                <TextInput style={styles.textInput}></TextInput>
+                <TextInput multiline style={styles.textInput}></TextInput>
               </View>
               <View style={styles.formControl}>
                 <Text style={styles.inputLabel}>Address</Text>
