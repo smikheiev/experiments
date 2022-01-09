@@ -4,10 +4,9 @@
     "build": "tsc",
     "build:watch": "tsc --watch",
     "serve": "yarn build:watch | firebase emulators:start --only functions",
-    "shell": "yarn build && firebase functions:shell",
-    "start": "yarn shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
+    "start": "docker compose -f docker/docker-compose.yml up -d",
+    "stop": "docker compose -f docker/docker-compose.yml down",
+    "deploy": "firebase deploy --only functions"
   },
   "engines": {
     "node": "14"
