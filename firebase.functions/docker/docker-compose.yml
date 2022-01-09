@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  functions-emulator:
+    build: .
+    container_name: experiments-firebase.functions-emulator
+    command: yarn serve
+    image: experiments/firebase.functions-emulator/firebase-emulator
+    ports:
+      - 4000:4000
+      - 5001:5001
+    restart: always
+    volumes:
+      - ..:/workspace

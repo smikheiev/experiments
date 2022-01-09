@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "predeploy": ["yarn build"],
+    "source": "."
+  },
+  "emulators": {
+    "functions": {
+      "host": "0.0.0.0"
+    },
+    "ui": {
+      "enabled": true,
+      "host": "0.0.0.0"
+    }
+  }
+}
