@@ -1,0 +1,22 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nextjs"
+      }
+    ]
+  },
+  "functions": {
+    "source": "."
+  },
+  "emulators": {
+    "hosting": {},
+    "functions": {},
+    "ui": {
+      "enabled": true
+    }
+  }
+}

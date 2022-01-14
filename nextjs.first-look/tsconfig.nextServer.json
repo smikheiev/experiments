@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "isolatedModules": false,
+    "module": "commonjs",
+    "noEmit": false,
+    "outDir": "dist"
+  },
+  "include": ["nextServer.ts"],
+  "exclude": ["node_modules"]
+}
