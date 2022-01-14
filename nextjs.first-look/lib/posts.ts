@@ -6,24 +6,39 @@ const postsDirectory = path.join(process.cwd(), "posts");
 
 export type PostData = {
   id: string;
+  content: string;
   date: string;
   title: string;
 };
 
-export function getSortedPostsData() {
+export function getSortedPostsData(): PostData[] {
   const fileNames = fs.readdirSync(postsDirectory);
   const postsData = fileNames.map(getPostDataFromFile);
   return sortPostsByDate(postsData);
 }
 
+export function getAllPostIds(): string[] {
+  const fileNames = fs.readdirSync(postsDirectory);
+  return fileNames.map(getPostIdFromFilename);
+}
+
+export function getPostData(postId: string): PostData {
+  const fileName = `${postId}.md`;
+  return getPostDataFromFile(fileName);
+}
+
 function getPostDataFromFile(fileName: string) {
-  const id = fileName.replace(/\.md$/, "");
+  const id = getPostIdFromFilename(fileName);
   const fileContent = getFileContent(fileName);
-  const markdownMetadata = parseMarkdownMetadata(fileContent);
+  const data = parseMarkdown(fileContent);
   return {
     id,
-    ...markdownMetadata,
+    ...data,
   };
+}
+
+function getPostIdFromFilename(fileName: string) {
+  return fileName.replace(/\.md$/, "");
 }
 
 function getFileContent(fileName: string) {
@@ -31,8 +46,12 @@ function getFileContent(fileName: string) {
   return fs.readFileSync(fullPath, "utf8");
 }
 
-function parseMarkdownMetadata(markdown: string) {
-  return matter(markdown).data as Omit<PostData, "id">;
+function parseMarkdown(markdown: string) {
+  const { content, data } = matter(markdown);
+  return {
+    ...(data as Omit<PostData, "id" | "content">),
+    content,
+  };
 }
 
 function sortPostsByDate(postsData: PostData[]) {
