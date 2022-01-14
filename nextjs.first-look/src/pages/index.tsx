@@ -1,13 +1,13 @@
-import Head from "next/head";
-import Link from "next/link";
-import Date from "../components/Date";
-import Layout, { siteTitle } from "../components/Layout";
-import { getSortedPostsData, PostData } from "../lib/posts";
-import utilStyles from "../styles/utils.module.css";
+import Head from 'next/head'
+import Link from 'next/link'
+import Date from '../components/Date'
+import Layout, { siteTitle } from '../components/Layout'
+import { getSortedPostsData, PostData } from '../lib/posts'
+import utilStyles from '../styles/utils.module.css'
 
 type Props = {
-  postsData: PostData[];
-};
+  postsData: PostData[]
+}
 
 export default function Home({ postsData }: Props) {
   return (
@@ -19,7 +19,7 @@ export default function Home({ postsData }: Props) {
       <section className={utilStyles.headingMd}>
         <p>{"Hello, I'm Serhii."}</p>
         <p>
-          (This is a sample website - you’ll be building a site like this on{" "}
+          (This is a sample website - you’ll be building a site like this on{' '}
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
       </section>
@@ -41,14 +41,14 @@ export default function Home({ postsData }: Props) {
         </ul>
       </section>
     </Layout>
-  );
+  )
 }
 
 export async function getStaticProps() {
-  const postsData = getSortedPostsData();
+  const postsData = getSortedPostsData()
   return {
     props: {
       postsData,
     },
-  };
+  }
 }

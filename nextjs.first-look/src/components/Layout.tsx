@@ -1,26 +1,23 @@
-import Head from "next/head";
-import Image from "next/image";
-import Link from "next/link";
-import { PropsWithChildren } from "react";
-import styles from "./Layout.module.css";
-import utilStyles from "../styles/utils.module.css";
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import { PropsWithChildren } from 'react'
+import utilStyles from '../styles/utils.module.css'
+import styles from './Layout.module.css'
 
-const name = "Serhii";
-export const siteTitle = "Next.js Sample Website";
+const name = 'Serhii'
+export const siteTitle = 'Next.js Sample Website'
 
 type Props = {
-  home?: boolean;
-};
+  home?: boolean
+}
 
 export default function Layout({ children, home }: PropsWithChildren<Props>) {
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <meta
-          name="description"
-          content="Learn how to build a personal website using Next.js"
-        />
+        <meta name="description" content="Learn how to build a personal website using Next.js" />
         <meta
           property="og:image"
           content={`https://og-image.vercel.app/${encodeURI(
@@ -77,5 +74,5 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
         </div>
       )}
     </div>
-  );
+  )
 }
