@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 import utilStyles from '../styles/utils.module.css'
+import staticImageLoader from '../lib/staticImageLoader'
 import styles from './Layout.module.css'
 
 const name = 'Serhii'
@@ -38,6 +39,7 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
               height={144}
               width={144}
               alt={name}
+              loader={staticImageLoader}
             />
             <h1 className={utilStyles.heading2Xl}>{name}</h1>
           </>
@@ -52,6 +54,7 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
                   height={108}
                   width={108}
                   alt={name}
+                  loader={staticImageLoader}
                 />
               </a>
             </Link>
