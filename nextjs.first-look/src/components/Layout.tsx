@@ -2,9 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
-import utilStyles from '../styles/utils.module.css'
 import staticImageLoader from '../lib/staticImageLoader'
-import styles from './Layout.module.css'
 
 const name = 'Serhii'
 export const siteTitle = 'Next.js Sample Website'
@@ -15,7 +13,7 @@ type Props = {
 
 export default function Layout({ children, home }: PropsWithChildren<Props>) {
   return (
-    <div className={styles.container}>
+    <div className="mt-12 mx-auto mb-24 px-4 py-0 max-w-xl">
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta name="description" content="Learn how to build a personal website using Next.js" />
@@ -29,19 +27,19 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
 
-      <header className={styles.header}>
+      <header className="flex flex-col items-center">
         {home ? (
           <>
             <Image
               priority
               src="/images/profile.jpg"
-              className={utilStyles.borderCircle}
+              className="rounded-full"
               height={144}
               width={144}
               alt={name}
               loader={staticImageLoader}
             />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
+            <h1 className="text-4xl font-extrabold mx-0 my-4 tracking-tighter">{name}</h1>
           </>
         ) : (
           <>
@@ -50,7 +48,7 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
                 <Image
                   priority
                   src="/images/profile.jpg"
-                  className={utilStyles.borderCircle}
+                  className="rounded-full"
                   height={108}
                   width={108}
                   alt={name}
@@ -58,9 +56,9 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
                 />
               </a>
             </Link>
-            <h2 className={utilStyles.headingLg}>
+            <h2 className="text-2xl my-4 mx-0">
               <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
+                <a className="text-inherit">{name}</a>
               </Link>
             </h2>
           </>
@@ -70,7 +68,7 @@ export default function Layout({ children, home }: PropsWithChildren<Props>) {
       <main>{children}</main>
 
       {!home && (
-        <div className={styles.backToHome}>
+        <div className="m-0 mt-12">
           <Link href="/">
             <a>← Back to home</a>
           </Link>

@@ -5,7 +5,6 @@ import remarkHtml from 'remark-html'
 import Date from '../../components/Date'
 import Layout from '../../components/Layout'
 import { getAllPostIds, getPostData, PostData } from '../../lib/posts'
-import utilStyles from '../../styles/utils.module.css'
 
 type Props = {
   postData: PostData
@@ -18,9 +17,9 @@ export default function Post({ postData }: Props) {
         <title>{postData.title}</title>
       </Head>
 
-      <article>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}>
+      <article className="prose">
+        <h1 className="text-4xl font-extrabold mx-0 my-4 tracking-tighter">{postData.title}</h1>
+        <div className="text-gray-500">
           <Date dateString={postData.date} />
         </div>
         <div dangerouslySetInnerHTML={{ __html: postData.content }} />
