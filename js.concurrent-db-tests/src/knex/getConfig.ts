@@ -13,7 +13,11 @@ type ConfigOptions = {
 
 export default function getConfig({ withoutDbName }: ConfigOptions = {}) {
   if (process.env.NODE_ENV === "test") {
-    return getTestConfig(withoutDbName ? undefined : "test");
+    const dbName = process.env.JEST_WORKER_ID
+      ? `test_${process.env.JEST_WORKER_ID}`
+      : "test";
+    console.log("Use db:", dbName);
+    return getTestConfig(withoutDbName ? undefined : dbName);
   }
 
   return defaultConfig;
