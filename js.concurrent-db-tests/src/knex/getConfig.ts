@@ -7,20 +7,24 @@ const defaultConfig = {
   },
 };
 
-export default function getConfig() {
+type ConfigOptions = {
+  withoutDbName?: boolean;
+};
+
+export default function getConfig({ withoutDbName }: ConfigOptions = {}) {
   if (process.env.NODE_ENV === "test") {
-    return getTestConfig();
+    return getTestConfig(withoutDbName ? undefined : "test");
   }
 
   return defaultConfig;
 }
 
-function getTestConfig() {
+function getTestConfig(dbName: string | undefined) {
   return {
     ...defaultConfig,
     connection: {
       ...defaultConfig.connection,
-      database: "test",
+      database: dbName,
     },
   };
 }
