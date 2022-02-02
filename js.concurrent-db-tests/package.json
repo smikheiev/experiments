@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev:docker": "docker compose -f docker/docker-compose.yml up -d"
   },
   "devDependencies": {
     "@types/jest": "27.4.0",
