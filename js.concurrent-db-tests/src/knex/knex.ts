@@ -1,4 +1,4 @@
 import knex from "knex";
-import config from "./config";
+import getConfig from "./getConfig";
 
-export default knex(config);
+export default knex(getConfig());

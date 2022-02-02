@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "dev": "ts-node src/index.ts",
     "dev:docker": "docker compose -f docker/docker-compose.yml up -d",
     "migration:make": "knex migrate:make",

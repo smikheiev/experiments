@@ -1,7 +1,7 @@
-import config from "./src/knex/config";
+import getConfig from "./src/knex/getConfig";
 
 export default {
-  ...config,
+  ...getConfig(),
   migrations: {
     directory: "./migrations",
   },
