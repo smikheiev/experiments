@@ -2,11 +2,15 @@ import "ts-node/register/transpile-only"; // this is needed to avoid 'Cannot use
 import Knex from "knex";
 import getConfig from "../src/knex/getConfig";
 
-export default async function () {
+type JestConfig = {
+  maxWorkers: number;
+};
+
+export default async function ({ maxWorkers }: JestConfig) {
   console.log("Jest global setup");
   await recreateTestDb();
   await runMigrations();
-  await createWorkerDbs();
+  await createWorkerDbs(maxWorkers);
 }
 
 async function recreateTestDb() {
@@ -34,11 +38,11 @@ async function runMigrations() {
     });
 }
 
-async function createWorkerDbs() {
+async function createWorkerDbs(maxWorkers: number) {
   const knex = Knex(getConfig({ withoutDbName: true }));
 
-  const workersCount = 10;
-  for (let i = 1; i <= workersCount; i++) {
+  console.log(`Create ${maxWorkers} worker dbs`);
+  for (let i = 1; i <= maxWorkers; i++) {
     const templateDbName = "test";
     const workerDbName = `test_${i}`;
     await knex.raw(`DROP DATABASE IF EXISTS ${workerDbName}`);
