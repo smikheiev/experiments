@@ -6,11 +6,17 @@ type JestConfig = {
   maxWorkers: number;
 };
 
+let inited = false;
 export default async function ({ maxWorkers }: JestConfig) {
+  if (inited) {
+    return;
+  }
+
   console.log("Jest global setup");
   await recreateTestDb();
   await runMigrations();
   await createWorkerDbs(maxWorkers);
+  inited = true;
 }
 
 async function recreateTestDb() {
