@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  postgres:
+    container_name: experiments.postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    image: postgres:13
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
