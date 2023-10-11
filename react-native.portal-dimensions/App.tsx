@@ -74,7 +74,7 @@ function App(): JSX.Element {
         />
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
+          style={[backgroundStyle, {marginBottom: bottomContainerHeight}]}>
           <Header />
           <View
             style={{
