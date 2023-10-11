@@ -6,7 +6,7 @@
  */
 
 import {Portal, PortalHost, PortalProvider} from '@gorhom/portal';
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
@@ -63,6 +63,8 @@ function App(): JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const [bottomContainerHeight, setBottomContainerHeight] = useState(0);
+
   return (
     <PortalProvider>
       <SafeAreaView style={backgroundStyle}>
@@ -96,7 +98,11 @@ function App(): JSX.Element {
             <LearnMoreLinks />
           </View>
         </ScrollView>
-        <View style={styles.floatingBottonContainer}>
+        <View
+          onLayout={event =>
+            setBottomContainerHeight(event.nativeEvent.layout.height)
+          }
+          style={styles.floatingBottonContainer}>
           <PortalHost name="bottomPortal" />
         </View>
       </SafeAreaView>
