@@ -112,7 +112,7 @@ function App(): JSX.Element {
 
 const styles = StyleSheet.create({
   sectionContainer: {
-    marginTop: 32,
+    marginVertical: 16,
     paddingHorizontal: 24,
   },
   sectionTitle: {
