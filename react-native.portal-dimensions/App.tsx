@@ -9,6 +9,7 @@ import {Portal, PortalHost, PortalProvider} from '@gorhom/portal';
 import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Button,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -30,10 +31,36 @@ type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): JSX.Element {
+function Section(props: SectionProps): JSX.Element {
+  const [portalEnabled, setPortalEnabled] = useState(false);
+
+  const portalButton = (
+    <Button
+      onPress={() => setPortalEnabled(prevEnabled => !prevEnabled)}
+      title={portalEnabled ? 'Disable portal' : 'Enable portal'}
+    />
+  );
+
+  return portalEnabled ? (
+    <Portal hostName="bottomPortal">
+      <SectionImpl {...props} portalButton={portalButton} />
+    </Portal>
+  ) : (
+    <SectionImpl {...props} portalButton={portalButton} />
+  );
+}
+
+type SectionImplProps = SectionProps & {portalButton: React.ReactNode};
+
+function SectionImpl({
+  children,
+  portalButton,
+  title,
+}: SectionImplProps): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
+      {portalButton}
       <Text
         style={[
           styles.sectionTitle,
@@ -90,11 +117,9 @@ function App(): JSX.Element {
             <Section title="Debug">
               <DebugInstructions />
             </Section>
-            <Portal hostName="bottomPortal">
-              <Section title="Learn More">
-                Read the docs to discover what to do next:
-              </Section>
-            </Portal>
+            <Section title="Learn More">
+              Read the docs to discover what to do next:
+            </Section>
             <LearnMoreLinks />
           </View>
         </ScrollView>
