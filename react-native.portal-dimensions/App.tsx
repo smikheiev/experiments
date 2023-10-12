@@ -94,11 +94,14 @@ function App(): JSX.Element {
 
   return (
     <PortalProvider>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={[styles.root, backgroundStyle]}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
+        <Text style={styles.portalHeightLabel}>
+          Portal height: {bottomContainerHeight}
+        </Text>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={[backgroundStyle, {marginBottom: bottomContainerHeight}]}>
@@ -136,6 +139,9 @@ function App(): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   sectionContainer: {
     marginVertical: 16,
     paddingHorizontal: 24,
@@ -157,6 +163,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
+    backgroundColor: 'pink',
+  },
+  portalHeightLabel: {
     backgroundColor: 'pink',
   },
 });
