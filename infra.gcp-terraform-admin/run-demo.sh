@@ -11,15 +11,11 @@ fi
 # Logout from gcloud
 gcloud auth revoke --all
 
-# Login to gcloud as admin
-echo "Login to gcloud as admin"
-gcloud auth login
-
 # Apply infra
 echo ""
 read -p "Press Enter to apply infra"
 
-GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token) terraform -chdir=$folder apply
+GOOGLE_APPLICATION_CREDENTIALS=../terraform-admin-sa-key.json terraform -chdir=$folder apply
 
 # Check that infra was applied
 if [[ $? -ne 0 ]]; then
@@ -37,31 +33,7 @@ read -p "Test that demo project works and press Enter to continue"
 echo ""
 read -p "Press Enter to destroy infra"
 
-GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token) terraform -chdir=$folder destroy
-
-# Logout from gcloud
-gcloud auth revoke --all
-
-# Login to gcloud as user
-echo ""
-echo "Login to gcloud as user"
-gcloud auth login
-
-# Apply infra
-echo ""
-read -p "Press Enter to apply infra"
-
-GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token) terraform -chdir=$folder apply
-
-# Check that infra was not applied
-if [[ $? -ne 0 ]]; then
-    echo ""
-    echo "✅ Infra was not applied, because user does not have permissions"
-else
-    echo ""
-    echo "🛑 Infra was applied, but it should not have been"
-    exit 1
-fi
+GOOGLE_APPLICATION_CREDENTIALS=../terraform-admin-sa-key.json terraform -chdir=$folder destroy
 
 # Logout from gcloud
 gcloud auth revoke --all
