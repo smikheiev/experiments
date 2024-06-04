@@ -25,6 +25,14 @@ resource "google_folder_iam_member" "terraform-admin" {
   role   = each.key
 }
 
+resource "google_service_account_iam_binding" "terrafor-admin" {
+  members = [
+    "group:gcp-terraform-admin@serhii.xyz",
+  ]
+  role               = "roles/iam.serviceAccountTokenCreator"
+  service_account_id = google_service_account.terraform-admin-sa.name
+}
+
 resource "google_service_account_key" "terraform-admin-sa" {
   service_account_id = google_service_account.terraform-admin-sa.name
 }
