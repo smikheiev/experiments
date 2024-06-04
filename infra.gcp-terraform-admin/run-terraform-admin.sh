@@ -32,8 +32,5 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-rm -f terraform-admin-sa-key.json
-terraform -chdir=terraform-admin output -raw terraform-admin-sa-key > terraform-admin-sa-key.json
-
 # Logout from gcloud
 gcloud auth revoke --all
