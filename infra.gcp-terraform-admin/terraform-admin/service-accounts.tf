@@ -4,6 +4,14 @@ resource "google_service_account" "terraform-admin-sa" {
   project      = google_project.terraform-admin.project_id
 }
 
+resource "google_billing_account_iam_member" "terraform-admin" {
+  for_each = toset(["roles/billing.user"])
+
+  billing_account_id = var.billing_account_id
+  member             = "serviceAccount:${google_service_account.terraform-admin-sa.email}"
+  role               = each.key
+}
+
 resource "google_folder_iam_member" "terraform-admin" {
   for_each = toset([
     "roles/editor",
