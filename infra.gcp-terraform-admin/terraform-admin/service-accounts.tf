@@ -13,3 +13,12 @@ resource "google_folder_iam_member" "terraform-admin" {
   member = "serviceAccount:${google_service_account.terraform-admin-sa.email}"
   role   = each.key
 }
+
+resource "google_service_account_key" "terraform-admin-sa" {
+  service_account_id = google_service_account.terraform-admin-sa.name
+}
+
+output "terraform-admin-sa-key" {
+  sensitive = true
+  value     = base64decode(google_service_account_key.terraform-admin-sa.private_key)
+}

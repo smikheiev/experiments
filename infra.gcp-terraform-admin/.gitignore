@@ -1,3 +1,4 @@
 .terraform
 *.tfvars
 terraform.tfstate*
+terraform-admin-sa-key.json
