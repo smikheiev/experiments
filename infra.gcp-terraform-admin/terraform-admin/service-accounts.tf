@@ -15,6 +15,7 @@ resource "google_billing_account_iam_member" "terraform-admin" {
 resource "google_folder_iam_member" "terraform-admin" {
   for_each = toset([
     "roles/editor",
+    "roles/resourcemanager.folderIamAdmin",
     "roles/resourcemanager.projectCreator",
   ])
 
