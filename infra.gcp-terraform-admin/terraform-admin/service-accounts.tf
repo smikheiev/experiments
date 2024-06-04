@@ -32,3 +32,7 @@ output "terraform-admin-sa-key" {
   sensitive = true
   value     = base64decode(google_service_account_key.terraform-admin-sa.private_key)
 }
+
+output "terraform-admin-sa-email" {
+  value = google_service_account.terraform-admin-sa.email
+}
