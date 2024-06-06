@@ -11,19 +11,15 @@ fi
 # Logout from gcloud
 gcloud auth revoke --all
 
-terraform_admin_sa_email=$(terraform -chdir=terraform-admin output -raw terraform-admin-sa-email)
-echo "Terraform Admin SA email: $terraform_admin_sa_email"
-
-# Login to gcloud as user
-echo ""
-echo "Login to gcloud as user"
+# Login to gcloud as admin
+echo "Login to gcloud as admin"
 gcloud auth login
 
 # Apply infra
 echo ""
 read -p "Press Enter to apply infra"
 
-GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token --impersonate-service-account $terraform_admin_sa_email) terraform -chdir=$folder apply
+GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token) terraform -chdir=$folder apply
 
 # Check that infra was applied
 if [[ $? -ne 0 ]]; then
