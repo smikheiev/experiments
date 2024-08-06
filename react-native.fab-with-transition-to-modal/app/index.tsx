@@ -11,6 +11,16 @@ export default function HomeScreen() {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Hello World</Text>
       <FabWithTransitionToModal
+        fabContent={
+          <Text
+            style={{
+              color: "white",
+              fontSize: 32,
+            }}
+          >
+            +
+          </Text>
+        }
         modalContent={
           <View style={{ padding: 16, alignItems: "center", gap: 16 }}>
             <Text
