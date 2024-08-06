@@ -38,6 +38,7 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
           position: "absolute",
           left: screenEdgeOffset,
           bottom: screenEdgeOffset,
+          overflow: "hidden",
         }}
       >
         <MotiView
