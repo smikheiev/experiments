@@ -48,26 +48,7 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
 
     return (
       <>
-        <AnimatePresence>
-          {isExpanded && (
-            <MotiView
-              from={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              style={StyleSheet.absoluteFill}
-            >
-              <Pressable style={{ flex: 1 }} onPress={collapse}>
-                {Platform.OS === "ios" ? (
-                  <BlurView intensity={10} style={{ flex: 1 }} />
-                ) : (
-                  <View
-                    style={{ flex: 1, backgroundColor: "gray", opacity: 0.8 }}
-                  />
-                )}
-              </Pressable>
-            </MotiView>
-          )}
-        </AnimatePresence>
+        {<Backdrop isVisible={isExpanded} onPress={collapse} />}
         <View
           style={{
             position: "absolute",
@@ -159,5 +140,36 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
     );
   }
 );
+
+function Backdrop({
+  isVisible,
+  onPress,
+}: {
+  isVisible: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <MotiView
+          from={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          style={StyleSheet.absoluteFill}
+        >
+          <Pressable style={{ flex: 1 }} onPress={onPress}>
+            {Platform.OS === "ios" ? (
+              <BlurView intensity={10} style={{ flex: 1 }} />
+            ) : (
+              <View
+                style={{ flex: 1, backgroundColor: "gray", opacity: 0.8 }}
+              />
+            )}
+          </Pressable>
+        </MotiView>
+      )}
+    </AnimatePresence>
+  );
+}
 
 export default FabWithTransitionToModal;
