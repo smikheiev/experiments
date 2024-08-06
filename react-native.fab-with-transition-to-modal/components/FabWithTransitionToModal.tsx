@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
-import { AnimatePresence, MotiView } from "moti";
+import { MotiView } from "moti";
 import { Easing } from "react-native-reanimated";
 
 type Props = {
@@ -72,36 +72,25 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
             setModalContentHeight(nativeEvent.layout.height);
           }}
         >
-          <AnimatePresence>
-            {isExpanded && (
-              <MotiView
-                from={{
-                  opacity: 0,
-                  translateY: 100,
-                }}
-                animate={{
-                  opacity: 1,
-                  translateY: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                }}
-                transition={{
-                  opacity: {
-                    type: "timing",
-                    duration: 600,
-                  },
-                  translateY: {
-                    type: "timing",
-                    duration: 600,
-                    easing: Easing.out(Easing.back(1.8)),
-                  },
-                }}
-              >
-                {modalContent}
-              </MotiView>
-            )}
-          </AnimatePresence>
+          <MotiView
+            animate={{
+              opacity: isExpanded ? 1 : 0,
+              translateY: isExpanded ? 0 : 100,
+            }}
+            transition={{
+              opacity: {
+                type: "timing",
+                duration: 600,
+              },
+              translateY: {
+                type: "timing",
+                duration: 600,
+                easing: Easing.out(Easing.back(1.8)),
+              },
+            }}
+          >
+            {modalContent}
+          </MotiView>
         </View>
       </View>
     );
