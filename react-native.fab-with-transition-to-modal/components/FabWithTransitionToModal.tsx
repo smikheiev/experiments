@@ -56,9 +56,14 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
             borderRadius: 16,
           }}
         >
-          <Pressable style={{ flex: 1 }} onPress={expand} />
+          <Pressable
+            pointerEvents={isExpanded ? "none" : "auto"}
+            style={{ flex: 1 }}
+            onPress={expand}
+          />
         </MotiView>
         <View
+          pointerEvents={isExpanded ? "auto" : "none"}
           style={{
             position: "absolute",
             width: expandedWidth,
