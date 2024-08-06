@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
+import { MotiView } from "moti";
 
 type Props = {
   modalContent: React.ReactNode;
@@ -39,16 +40,22 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
           bottom: screenEdgeOffset,
         }}
       >
-        <View
-          style={{
-            backgroundColor: "black",
-            borderRadius: 16,
+        <MotiView
+          animate={{
             width: isExpanded ? expandedWidth : 56,
             height: isExpanded ? modalContentHeight : 56,
           }}
+          transition={{
+            type: "timing",
+            duration: 300,
+          }}
+          style={{
+            backgroundColor: "black",
+            borderRadius: 16,
+          }}
         >
           <Pressable style={{ flex: 1 }} onPress={expand} />
-        </View>
+        </MotiView>
         <View
           style={{
             position: "absolute",
