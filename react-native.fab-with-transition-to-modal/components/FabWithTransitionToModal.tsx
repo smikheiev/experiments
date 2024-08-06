@@ -79,22 +79,25 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
               onPress={expand}
             />
           </MotiView>
-          {fabContent && (
-            <View
-              pointerEvents="none"
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: 56,
-                height: 56,
-                alignItems: "center",
-                justifyContent: "center",
-                opacity: isExpanded ? 0 : 1,
-              }}
-            >
-              {fabContent}
-            </View>
-          )}
+          {fabContent && <MotiView
+            animate={{
+              opacity: isExpanded ? 0 : 1,
+            }}
+            transition={{
+              duration: 150,
+            }}
+            pointerEvents="none"
+            style={{
+              position: "absolute",
+              bottom: 0,
+              width: 56,
+              height: 56,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            {fabContent}
+          </MotiView>}
           <View
             pointerEvents={isExpanded ? "auto" : "none"}
             style={{
