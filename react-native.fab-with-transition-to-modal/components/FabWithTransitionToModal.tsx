@@ -1,6 +1,7 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
 import { AnimatePresence, MotiView } from "moti";
+import { Easing } from "react-native-reanimated";
 
 type Props = {
   modalContent: React.ReactNode;
@@ -83,11 +84,12 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
                 transition={{
                   opacity: {
                     type: "timing",
-                    duration: 900,
+                    duration: 600,
                   },
                   translateY: {
                     type: "timing",
                     duration: 600,
+                    easing: Easing.out(Easing.back(1.8)),
                   },
                 }}
               >
