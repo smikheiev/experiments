@@ -57,33 +57,15 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
             overflow: "hidden",
           }}
         >
-          <MotiView
-            animate={{
-              borderRadius: isExpanded ? 24 : 16,
-              width: isExpanded ? expandedWidth : collapsedSize,
-              height: isExpanded ? modalContentHeight : collapsedSize,
-            }}
-            transition={{
-              type: "timing",
-              duration: 300,
-            }}
-            style={{
-              overflow: "hidden",
-            }}
-          >
-            <Pressable
-              pointerEvents={isExpanded ? "none" : "auto"}
-              style={{ flex: 1 }}
+          <View pointerEvents={isExpanded ? "none" : "auto"}>
+            <Background
+              collapsedSize={collapsedSize}
+              isExpanded={isExpanded}
+              expandedHeight={modalContentHeight}
+              expandedWidth={expandedWidth}
               onPress={expand}
-            >
-              <LinearGradient
-                colors={["#000000", "#444444"]}
-                start={{ x: 0, y: 1 }}
-                end={{ x: 1, y: 0 }}
-                style={{ flex: 1 }}
-              />
-            </Pressable>
-          </MotiView>
+            />
+          </View>
           {fabContent && (
             <MotiView
               animate={{
@@ -169,6 +151,46 @@ function Backdrop({
         </MotiView>
       )}
     </AnimatePresence>
+  );
+}
+
+function Background({
+  collapsedSize,
+  expandedHeight,
+  expandedWidth,
+  isExpanded,
+  onPress,
+}: {
+  collapsedSize: number;
+  expandedHeight: number;
+  expandedWidth: number;
+  isExpanded: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <MotiView
+      animate={{
+        borderRadius: isExpanded ? 24 : 16,
+        width: isExpanded ? expandedWidth : collapsedSize,
+        height: isExpanded ? expandedHeight : collapsedSize,
+      }}
+      transition={{
+        type: "timing",
+        duration: 300,
+      }}
+      style={{
+        overflow: "hidden",
+      }}
+    >
+      <Pressable style={{ flex: 1 }} onPress={onPress}>
+        <LinearGradient
+          colors={["#000000", "#444444"]}
+          start={{ x: 0, y: 1 }}
+          end={{ x: 1, y: 0 }}
+          style={{ flex: 1 }}
+        />
+      </Pressable>
+    </MotiView>
   );
 }
 
