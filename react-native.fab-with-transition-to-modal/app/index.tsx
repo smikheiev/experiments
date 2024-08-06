@@ -11,6 +11,7 @@ export default function HomeScreen() {
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Hello World</Text>
       <FabWithTransitionToModal
+        collapsedSize={56}
         fabContent={
           <Text
             style={{

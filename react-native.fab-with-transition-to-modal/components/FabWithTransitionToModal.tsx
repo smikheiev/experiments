@@ -11,6 +11,7 @@ import { Easing } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
 
 type Props = {
+  collapsedSize: number;
   fabContent?: React.ReactNode;
   modalContent: React.ReactNode;
   screenEdgeOffset: number;
@@ -22,7 +23,10 @@ export type FabWithTransitionToModalRef = {
 };
 
 const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
-  function ({ fabContent, modalContent, screenEdgeOffset }, ref) {
+  function (
+    { collapsedSize, fabContent, modalContent, screenEdgeOffset },
+    ref
+  ) {
     const [isExpanded, setIsExpanded] = useState(false);
     const expandedWidth = Dimensions.get("window").width - screenEdgeOffset * 2;
 
@@ -74,8 +78,8 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
           <MotiView
             animate={{
               borderRadius: isExpanded ? 24 : 16,
-              width: isExpanded ? expandedWidth : 56,
-              height: isExpanded ? modalContentHeight : 56,
+              width: isExpanded ? expandedWidth : collapsedSize,
+              height: isExpanded ? modalContentHeight : collapsedSize,
             }}
             transition={{
               type: "timing",
@@ -103,8 +107,8 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
               style={{
                 position: "absolute",
                 bottom: 0,
-                width: 56,
-                height: 56,
+                width: collapsedSize,
+                height: collapsedSize,
                 alignItems: "center",
                 justifyContent: "center",
               }}
