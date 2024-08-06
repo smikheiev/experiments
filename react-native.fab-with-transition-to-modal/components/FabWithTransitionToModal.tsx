@@ -2,10 +2,14 @@ import { useCallback, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
 
 type Props = {
+  modalContent: React.ReactNode;
   screenEdgeOffset: number;
 };
 
-export default function FabWithTransitionToModal({ screenEdgeOffset }: Props) {
+export default function FabWithTransitionToModal({
+  modalContent,
+  screenEdgeOffset,
+}: Props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const expandedWidth = Dimensions.get("window").width - screenEdgeOffset * 2;
 
@@ -30,6 +34,14 @@ export default function FabWithTransitionToModal({ screenEdgeOffset }: Props) {
         }}
       >
         <Pressable style={{ flex: 1 }} onPress={expand} />
+      </View>
+      <View
+        style={{
+          position: "absolute",
+          width: expandedWidth,
+        }}
+      >
+        {isExpanded && modalContent}
       </View>
     </View>
   );
