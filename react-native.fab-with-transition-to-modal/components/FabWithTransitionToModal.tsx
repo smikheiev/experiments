@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { Dimensions, Pressable, View } from "react-native";
 
 type Props = {
@@ -6,48 +6,63 @@ type Props = {
   screenEdgeOffset: number;
 };
 
-export default function FabWithTransitionToModal({
-  modalContent,
-  screenEdgeOffset,
-}: Props) {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const expandedWidth = Dimensions.get("window").width - screenEdgeOffset * 2;
+export type FabWithTransitionToModalRef = {
+  collapse: () => void;
+  expand: () => void;
+};
 
-  const [modalContentHeight, setModalContentHeight] = useState(0);
+const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
+  function ({ modalContent, screenEdgeOffset }, ref) {
+    const [isExpanded, setIsExpanded] = useState(false);
+    const expandedWidth = Dimensions.get("window").width - screenEdgeOffset * 2;
 
-  const expand = useCallback(() => {
-    setIsExpanded(true);
-  }, []);
+    const [modalContentHeight, setModalContentHeight] = useState(0);
 
-  return (
-    <View
-      style={{
-        position: "absolute",
-        left: screenEdgeOffset,
-        bottom: screenEdgeOffset,
-      }}
-    >
-      <View
-        style={{
-          backgroundColor: "black",
-          borderRadius: 16,
-          width: isExpanded ? expandedWidth : 56,
-          height: isExpanded ? modalContentHeight : 56,
-        }}
-      >
-        <Pressable style={{ flex: 1 }} onPress={expand} />
-      </View>
+    const collapse = useCallback(() => {
+      setIsExpanded(false);
+    }, []);
+
+    const expand = useCallback(() => {
+      setIsExpanded(true);
+    }, []);
+
+    useImperativeHandle(ref, () => ({
+      collapse,
+      expand,
+    }));
+
+    return (
       <View
         style={{
           position: "absolute",
-          width: expandedWidth,
-        }}
-        onLayout={({ nativeEvent }) => {
-          setModalContentHeight(nativeEvent.layout.height);
+          left: screenEdgeOffset,
+          bottom: screenEdgeOffset,
         }}
       >
-        {isExpanded && modalContent}
+        <View
+          style={{
+            backgroundColor: "black",
+            borderRadius: 16,
+            width: isExpanded ? expandedWidth : 56,
+            height: isExpanded ? modalContentHeight : 56,
+          }}
+        >
+          <Pressable style={{ flex: 1 }} onPress={expand} />
+        </View>
+        <View
+          style={{
+            position: "absolute",
+            width: expandedWidth,
+          }}
+          onLayout={({ nativeEvent }) => {
+            setModalContentHeight(nativeEvent.layout.height);
+          }}
+        >
+          {isExpanded && modalContent}
+        </View>
       </View>
-    </View>
-  );
-}
+    );
+  }
+);
+
+export default FabWithTransitionToModal;

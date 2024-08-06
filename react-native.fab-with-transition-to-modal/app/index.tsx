@@ -1,7 +1,12 @@
-import FabWithTransitionToModal from "@/components/FabWithTransitionToModal";
+import FabWithTransitionToModal, {
+  FabWithTransitionToModalRef,
+} from "@/components/FabWithTransitionToModal";
+import { useRef } from "react";
 import { Button, Text, TextInput, View } from "react-native";
 
 export default function HomeScreen() {
+  const fabRef = useRef<FabWithTransitionToModalRef>(null);
+
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
       <Text>Hello World</Text>
@@ -25,9 +30,10 @@ export default function HomeScreen() {
               }}
               placeholder="Enter text here"
             />
-            <Button title="Done" onPress={() => console.log("Done")} />
+            <Button title="Done" onPress={() => fabRef.current?.collapse()} />
           </View>
         }
+        ref={fabRef}
         screenEdgeOffset={32}
       />
     </View>
