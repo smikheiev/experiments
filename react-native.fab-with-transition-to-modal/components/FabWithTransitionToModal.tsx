@@ -60,6 +60,7 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
         >
           <MotiView
             animate={{
+              borderRadius: isExpanded ? 24 : 16,
               width: isExpanded ? expandedWidth : 56,
               height: isExpanded ? modalContentHeight : 56,
             }}
@@ -69,7 +70,6 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
             }}
             style={{
               backgroundColor: "black",
-              borderRadius: 16,
             }}
           >
             <Pressable
