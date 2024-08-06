@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
 import { Dimensions, Pressable, StyleSheet, View } from "react-native";
-import { MotiView } from "moti";
+import { AnimatePresence, MotiView } from "moti";
 import { Easing } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
 
@@ -36,11 +36,20 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
 
     return (
       <>
-        {isExpanded && (
-          <Pressable style={StyleSheet.absoluteFill} onPress={collapse}>
-            <BlurView intensity={10} style={{ flex: 1 }} />
-          </Pressable>
-        )}
+        <AnimatePresence>
+          {isExpanded && (
+            <MotiView
+              from={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              style={StyleSheet.absoluteFill}
+            >
+              <Pressable style={{ flex: 1 }} onPress={collapse}>
+                <BlurView intensity={10} style={{ flex: 1 }} />
+              </Pressable>
+            </MotiView>
+          )}
+        </AnimatePresence>
         <View
           style={{
             position: "absolute",
