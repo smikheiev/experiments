@@ -79,33 +79,32 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
               onPress={expand}
             />
           </MotiView>
-          {fabContent && <MotiView
-            animate={{
-              opacity: isExpanded ? 0 : 1,
-            }}
-            transition={{
-              duration: 150,
-            }}
-            pointerEvents="none"
-            style={{
-              position: "absolute",
-              bottom: 0,
-              width: 56,
-              height: 56,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {fabContent}
-          </MotiView>}
+          {fabContent && (
+            <MotiView
+              animate={{
+                opacity: isExpanded ? 0 : 1,
+              }}
+              transition={{
+                duration: 150,
+              }}
+              pointerEvents="none"
+              style={{
+                position: "absolute",
+                bottom: 0,
+                width: 56,
+                height: 56,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {fabContent}
+            </MotiView>
+          )}
           <View
             pointerEvents={isExpanded ? "auto" : "none"}
             style={{
               position: "absolute",
               width: expandedWidth,
-            }}
-            onLayout={({ nativeEvent }) => {
-              setModalContentHeight(nativeEvent.layout.height);
             }}
           >
             <MotiView
@@ -123,6 +122,9 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
                   duration: 600,
                   easing: Easing.out(Easing.back(1.8)),
                 },
+              }}
+              onLayout={({ nativeEvent }) => {
+                setModalContentHeight(nativeEvent.layout.height);
               }}
             >
               {modalContent}
