@@ -37,7 +37,9 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
     return (
       <>
         {isExpanded && (
-          <BlurView intensity={10} style={StyleSheet.absoluteFill} />
+          <Pressable style={StyleSheet.absoluteFill} onPress={collapse}>
+            <BlurView intensity={10} style={{ flex: 1 }} />
+          </Pressable>
         )}
         <View
           style={{
