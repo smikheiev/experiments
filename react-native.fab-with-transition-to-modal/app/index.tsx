@@ -41,6 +41,24 @@ export default function HomeScreen() {
               placeholder="Enter text here"
             />
             <Button title="Done" onPress={() => fabRef.current?.collapse()} />
+            <Text
+              style={{
+                color: "white",
+                fontSize: 32,
+              }}
+            >
+              Hey there!
+            </Text>
+            <TextInput
+              style={{
+                backgroundColor: "white",
+                width: "80%",
+                padding: 16,
+                borderRadius: 16,
+              }}
+              placeholder="Enter text here"
+            />
+            <Button title="Done" onPress={() => fabRef.current?.collapse()} />
           </View>
         }
         ref={fabRef}
