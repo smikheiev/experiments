@@ -13,6 +13,8 @@ export default function FabWithTransitionToModal({
   const [isExpanded, setIsExpanded] = useState(false);
   const expandedWidth = Dimensions.get("window").width - screenEdgeOffset * 2;
 
+  const [modalContentHeight, setModalContentHeight] = useState(0);
+
   const expand = useCallback(() => {
     setIsExpanded(true);
   }, []);
@@ -30,7 +32,7 @@ export default function FabWithTransitionToModal({
           backgroundColor: "black",
           borderRadius: 16,
           width: isExpanded ? expandedWidth : 56,
-          height: isExpanded ? expandedWidth : 56,
+          height: isExpanded ? modalContentHeight : 56,
         }}
       >
         <Pressable style={{ flex: 1 }} onPress={expand} />
@@ -39,6 +41,9 @@ export default function FabWithTransitionToModal({
         style={{
           position: "absolute",
           width: expandedWidth,
+        }}
+        onLayout={({ nativeEvent }) => {
+          setModalContentHeight(nativeEvent.layout.height);
         }}
       >
         {isExpanded && modalContent}
