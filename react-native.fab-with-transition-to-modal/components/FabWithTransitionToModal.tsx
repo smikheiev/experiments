@@ -1,7 +1,8 @@
 import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
-import { Dimensions, Pressable, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, View } from "react-native";
 import { MotiView } from "moti";
 import { Easing } from "react-native-reanimated";
+import { BlurView } from "expo-blur";
 
 type Props = {
   modalContent: React.ReactNode;
@@ -34,65 +35,70 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
     }));
 
     return (
-      <View
-        style={{
-          position: "absolute",
-          left: screenEdgeOffset,
-          bottom: screenEdgeOffset,
-          overflow: "hidden",
-        }}
-      >
-        <MotiView
-          animate={{
-            width: isExpanded ? expandedWidth : 56,
-            height: isExpanded ? modalContentHeight : 56,
-          }}
-          transition={{
-            type: "timing",
-            duration: 300,
-          }}
-          style={{
-            backgroundColor: "black",
-            borderRadius: 16,
-          }}
-        >
-          <Pressable
-            pointerEvents={isExpanded ? "none" : "auto"}
-            style={{ flex: 1 }}
-            onPress={expand}
-          />
-        </MotiView>
+      <>
+        {isExpanded && (
+          <BlurView intensity={10} style={StyleSheet.absoluteFill} />
+        )}
         <View
-          pointerEvents={isExpanded ? "auto" : "none"}
           style={{
             position: "absolute",
-            width: expandedWidth,
-          }}
-          onLayout={({ nativeEvent }) => {
-            setModalContentHeight(nativeEvent.layout.height);
+            left: screenEdgeOffset,
+            bottom: screenEdgeOffset,
+            overflow: "hidden",
           }}
         >
           <MotiView
             animate={{
-              opacity: isExpanded ? 1 : 0,
-              translateY: isExpanded ? 0 : 100,
+              width: isExpanded ? expandedWidth : 56,
+              height: isExpanded ? modalContentHeight : 56,
             }}
             transition={{
-              opacity: {
-                type: "timing",
-                duration: 600,
-              },
-              translateY: {
-                type: "timing",
-                duration: 600,
-                easing: Easing.out(Easing.back(1.8)),
-              },
+              type: "timing",
+              duration: 300,
+            }}
+            style={{
+              backgroundColor: "black",
+              borderRadius: 16,
             }}
           >
-            {modalContent}
+            <Pressable
+              pointerEvents={isExpanded ? "none" : "auto"}
+              style={{ flex: 1 }}
+              onPress={expand}
+            />
           </MotiView>
+          <View
+            pointerEvents={isExpanded ? "auto" : "none"}
+            style={{
+              position: "absolute",
+              width: expandedWidth,
+            }}
+            onLayout={({ nativeEvent }) => {
+              setModalContentHeight(nativeEvent.layout.height);
+            }}
+          >
+            <MotiView
+              animate={{
+                opacity: isExpanded ? 1 : 0,
+                translateY: isExpanded ? 0 : 100,
+              }}
+              transition={{
+                opacity: {
+                  type: "timing",
+                  duration: 600,
+                },
+                translateY: {
+                  type: "timing",
+                  duration: 600,
+                  easing: Easing.out(Easing.back(1.8)),
+                },
+              }}
+            >
+              {modalContent}
+            </MotiView>
+          </View>
         </View>
-      </View>
+      </>
     );
   }
 );
