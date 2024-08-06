@@ -9,6 +9,7 @@ import {
 import { AnimatePresence, MotiView } from "moti";
 import { Easing } from "react-native-reanimated";
 import { BlurView } from "expo-blur";
+import { LinearGradient } from "expo-linear-gradient";
 
 type Props = {
   collapsedSize: number;
@@ -86,14 +87,21 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
               duration: 300,
             }}
             style={{
-              backgroundColor: "black",
+              overflow: "hidden",
             }}
           >
             <Pressable
               pointerEvents={isExpanded ? "none" : "auto"}
               style={{ flex: 1 }}
               onPress={expand}
-            />
+            >
+              <LinearGradient
+                colors={["#000000", "#444444"]}
+                start={{ x: 0, y: 1 }}
+                end={{ x: 1, y: 0 }}
+                style={{ flex: 1 }}
+              />
+            </Pressable>
           </MotiView>
           {fabContent && (
             <MotiView
