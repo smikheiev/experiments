@@ -1,4 +1,10 @@
-import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
+import {
+  forwardRef,
+  PropsWithChildren,
+  useCallback,
+  useImperativeHandle,
+  useState,
+} from "react";
 import {
   Dimensions,
   Platform,
@@ -67,13 +73,7 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
             />
           </View>
           {fabContent && (
-            <MotiView
-              animate={{
-                opacity: isExpanded ? 0 : 1,
-              }}
-              transition={{
-                duration: 150,
-              }}
+            <View
               pointerEvents="none"
               style={{
                 position: "absolute",
@@ -84,8 +84,8 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
                 justifyContent: "center",
               }}
             >
-              {fabContent}
-            </MotiView>
+              <FabContent isVisible={isExpanded}>{fabContent}</FabContent>
+            </View>
           )}
           <View
             pointerEvents={isExpanded ? "auto" : "none"}
@@ -190,6 +190,24 @@ function Background({
           style={{ flex: 1 }}
         />
       </Pressable>
+    </MotiView>
+  );
+}
+
+function FabContent({
+  children,
+  isVisible,
+}: PropsWithChildren<{ isVisible: boolean }>) {
+  return (
+    <MotiView
+      animate={{
+        opacity: isVisible ? 0 : 1,
+      }}
+      transition={{
+        duration: 150,
+      }}
+    >
+      {children}
     </MotiView>
   );
 }
