@@ -94,28 +94,12 @@ const FabWithTransitionToModal = forwardRef<FabWithTransitionToModalRef, Props>(
               width: expandedWidth,
             }}
           >
-            <MotiView
-              animate={{
-                opacity: isExpanded ? 1 : 0,
-                translateY: isExpanded ? 0 : 100,
-              }}
-              transition={{
-                opacity: {
-                  type: "timing",
-                  duration: 600,
-                },
-                translateY: {
-                  type: "timing",
-                  duration: 600,
-                  easing: Easing.out(Easing.back(1.8)),
-                },
-              }}
-              onLayout={({ nativeEvent }) => {
-                setModalContentHeight(nativeEvent.layout.height);
-              }}
+            <ModalContent
+              isVisible={isExpanded}
+              onHeightChange={setModalContentHeight}
             >
               {modalContent}
-            </MotiView>
+            </ModalContent>
           </View>
         </View>
       </>
@@ -205,6 +189,40 @@ function FabContent({
       }}
       transition={{
         duration: 150,
+      }}
+    >
+      {children}
+    </MotiView>
+  );
+}
+
+function ModalContent({
+  children,
+  isVisible,
+  onHeightChange,
+}: PropsWithChildren<{
+  isVisible: boolean;
+  onHeightChange: (height: number) => void;
+}>) {
+  return (
+    <MotiView
+      animate={{
+        opacity: isVisible ? 1 : 0,
+        translateY: isVisible ? 0 : 100,
+      }}
+      transition={{
+        opacity: {
+          type: "timing",
+          duration: 600,
+        },
+        translateY: {
+          type: "timing",
+          duration: 600,
+          easing: Easing.out(Easing.back(1.8)),
+        },
+      }}
+      onLayout={({ nativeEvent }) => {
+        onHeightChange(nativeEvent.layout.height);
       }}
     >
       {children}
