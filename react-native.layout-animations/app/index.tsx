@@ -13,6 +13,10 @@ export default function HomeScreen() {
     });
   };
 
+  const removeItem = (itemId: number) => {
+    setItems((items) => items.filter((item) => item.id !== itemId));
+  };
+
   return (
     <>
       <View
@@ -24,7 +28,7 @@ export default function HomeScreen() {
         }}
       >
         {items.map((item) => (
-          <View
+          <Pressable
             key={item.id}
             style={{
               padding: 16,
@@ -34,9 +38,10 @@ export default function HomeScreen() {
               alignItems: "center",
               justifyContent: "center",
             }}
+            onPress={() => removeItem(item.id)}
           >
             <Text style={{ fontSize: 24 }}>{item.id}</Text>
-          </View>
+          </Pressable>
         ))}
       </View>
       <Pressable
