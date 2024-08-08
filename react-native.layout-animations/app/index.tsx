@@ -1,5 +1,10 @@
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
+import Animated, {
+  FadeIn,
+  FadeOut,
+  LinearTransition,
+} from "react-native-reanimated";
 
 export default function HomeScreen() {
   const [items, setItems] = useState(
@@ -28,20 +33,26 @@ export default function HomeScreen() {
         }}
       >
         {items.map((item) => (
-          <Pressable
+          <Animated.View
             key={item.id}
-            style={{
-              padding: 16,
-              borderWidth: 1,
-              borderColor: "black",
-              borderRadius: 16,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onPress={() => removeItem(item.id)}
+            layout={LinearTransition}
+            entering={FadeIn}
+            exiting={FadeOut}
           >
-            <Text style={{ fontSize: 24 }}>{item.id}</Text>
-          </Pressable>
+            <Pressable
+              style={{
+                padding: 16,
+                borderWidth: 1,
+                borderColor: "black",
+                borderRadius: 16,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              onPress={() => removeItem(item.id)}
+            >
+              <Text style={{ fontSize: 24 }}>{item.id}</Text>
+            </Pressable>
+          </Animated.View>
         ))}
       </View>
       <Pressable
