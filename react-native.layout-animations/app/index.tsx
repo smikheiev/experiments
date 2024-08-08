@@ -35,9 +35,9 @@ export default function HomeScreen() {
         {items.map((item) => (
           <Animated.View
             key={item.id}
-            layout={LinearTransition.springify().mass(0.5)}
+            layout={LinearTransition.springify().mass(0.5).delay(150)}
             entering={FadeIn}
-            exiting={FadeOut}
+            exiting={FadeOut.duration(300)}
           >
             <Pressable
               style={{
