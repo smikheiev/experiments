@@ -33,6 +33,15 @@ resource "google_service_account_iam_binding" "terrafor-admin" {
   service_account_id = google_service_account.terraform-admin-sa.name
 }
 
+resource "google_service_account_key" "terraform-admin-sa" {
+  service_account_id = google_service_account.terraform-admin-sa.name
+}
+
+output "terraform-admin-sa-key" {
+  sensitive = true
+  value     = google_service_account_key.terraform-admin-sa.private_key
+}
+
 output "terraform-admin-sa-email" {
   value = google_service_account.terraform-admin-sa.email
 }
