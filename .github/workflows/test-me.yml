@@ -56,3 +56,9 @@ jobs:
           echo "First few characters of terraform-admin-sa-key.json:"
           head -c 100 terraform-admin-sa-key.json
         working-directory: ./infra.gcp-terraform-github-actions
+
+      - name: Plan Terraform
+        run: terraform plan -out=tfplan
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: "../terraform-admin-sa-key.json"
+        working-directory: ./infra.gcp-terraform-github-actions/demo
