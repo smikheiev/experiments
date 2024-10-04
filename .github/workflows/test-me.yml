@@ -61,17 +61,6 @@ jobs:
         run: |
           echo '${{ steps.gcp_auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
-      # - name: Write Terraform Admin SA key to file
-      #   run: |
-      #     echo "${{ secrets.GCP_TERRAFORM_GITHUB_ACTIONS_TERRAFORM_ADMIN_SA_KEY }}" | base64 -d > terraform-admin-sa-key.json
-      #   working-directory: ./infra.gcp-terraform-github-actions
-
-      # - name: Print first few characters of SA key file
-      #   run: |
-      #     echo "First few characters of terraform-admin-sa-key.json:"
-      #     head -c 100 terraform-admin-sa-key.json
-      #   working-directory: ./infra.gcp-terraform-github-actions
-
       - name: Plan Terraform
         run: terraform plan -out=tfplan
         env:
