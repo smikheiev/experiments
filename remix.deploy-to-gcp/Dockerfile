@@ -24,9 +24,10 @@ ENV NODE_ENV=production
 ENV PORT=8080
 COPY --from=production-deps /app/node_modules /app/node_modules
 COPY --from=build /app/build /app/build
+COPY --from=build /app/server.js /app/server.js
 
 RUN useradd -m appuser
 USER appuser
 
 EXPOSE $PORT
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
